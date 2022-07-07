@@ -1,6 +1,6 @@
 # Laravel learning
 
-2:41:44
+2:52:23
 
 ### Установка
 
@@ -12,6 +12,19 @@ php artisan key:generate
 php artisan migrate
 php artisan storage:link
 ~~~
+
+установка без пакетов для разработчика
+~~~
+composer install --no-dev
+~~~
+
+### Настройка PhpStorm
+ставим плагин:<br>
+`File -> Settings -> Plugins -> Marketplace -> Laravel`<br>
+активируем:<br>
+`File -> Settings -> PHP -> Laravel -> Enable plugin for this project`<br>
+после установки любого пакета нужно выполнить:<br>
+`php artisan ide-helper:generate`
 
 ### Nginx ручная установка
 
@@ -44,4 +57,54 @@ sudo ln -s /etc/nginx/sites-available/lara-learn /etc/nginx/sites-enabled/
 
 ~~~
 sudo systemctl reload nginx
+~~~
+
+### сниппет для прода
+~~~
+server {
+listen 80;
+listen [::]:80;
+
+    server_name <Ваш домен> www.<Ваш домен>;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+listen 443 ssl http2;
+listen [::]:443 ssl http2;
+server_name <Ваш домен> www.<Ваш домен>;
+root /var/www/html/<Имя проекта>/public;
+
+    ssl_certificate /etc/letsencrypt/live/<Ваш домен>/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<Ваш домен>/privkey.pem;
+
+    ssl_protocols TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384;
+    ssl_prefer_server_ciphers on;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+
+    index index.php index.html index.htm index.nginx-debian.html;
+
+    charset utf-8;
+
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    }
+
+    location ~ /\.ht {
+            deny all;
+    }
+
+    location ~ /.well-known {
+            allow all;
+    }
+}
 ~~~
