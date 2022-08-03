@@ -11,6 +11,9 @@ sudo chmod -R 777 storage
 php artisan key:generate
 php artisan migrate
 php artisan storage:link
+yarn
+npm install
+npm run dev #npm run prod
 ~~~
 
 установка без пакетов для разработчика
