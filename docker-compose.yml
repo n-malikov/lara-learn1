@@ -1,0 +1,42 @@
+version: '2' # в зависимости от версии меняется синтаксис
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: docker/nginx.docker
+    volumes: # соединяем локальные папки с папками внутри образа
+      - ./:/var/www
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    ports:
+      - "8080:443"
+    links:
+      - php-fpm
+  php-fpm: # название образа
+    build:
+      context: ./
+      dockerfile: docker/php-fpm.docker
+    volumes:
+      - ./:/var/www
+    links:
+      - artello-mysql
+      - redis
+    environment: # переопределяем наш .env
+      -  "DB_PORT=3306"
+      -  "DB_HOST=artello-mysql"
+      -  "REDIS_PORT=6379"
+      -  "REDIS_HOST=redis"
+  artello-mysql: # mysql -uvinni -payrS0nKL1W --port 33061 --host 127.0.0.1
+    image: mysql:5.7 # что будет внутри и его версия
+    volumes:
+      - ./storage/docker/mysql:/var/lib/mysql
+    environment: # настройки env для прокидки внутрь
+      - "MYSQL_ROOT_PASSWORD=secret"
+      - "MYSQL_USER=vinni"
+      - "MYSQL_PASSWORD=ayrS0nKL1W"
+      - "MYSQL_DATABASE=lara_learn"
+    ports: # внешний и внутренний порт
+      - "33061:3306"
+  redis:
+    image: redis:3.0
+    ports:
+      - "63791:6379"

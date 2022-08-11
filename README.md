@@ -1,6 +1,24 @@
 # Laravel learning
 
-2:52:23
+### Docker
+
+собрать и разобрать:
+~~~
+docker-compose up -d
+docker-compose down
+~~~
+
+будет доступен тут: [https://localhost:8080/](https://localhost:8080/) <br>
+
+выполнить команды внутри образа: <br>
+~~~
+docker exec artello_php-fpm_1 php artisan migrate
+~~~
+
+если нужно сменить префикс создаваемых образов, то в .env добавляем такую строчку:
+~~~
+COMPOSE_PROJECT_NAME=app
+~~~
 
 ### Установка
 
@@ -11,6 +29,9 @@ sudo chmod -R 777 storage
 php artisan key:generate
 php artisan migrate
 php artisan storage:link
+~~~
+~~~
+nvm use 16.14.2
 yarn
 npm install
 npm run dev #npm run prod
