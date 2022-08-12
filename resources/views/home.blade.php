@@ -16,6 +16,10 @@
 
                     <h2><code>laralearn</code> - введи в поиске по проекту, это комментарии из уроков</h2>
 
+                    <ul>
+                        <li><a href="/docker">Docker</a></li>
+                    </ul>
+
                     <p>
                         без пакетов для разработчика<br>
                         <code>composer install --no-dev</code>

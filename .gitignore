@@ -6,6 +6,7 @@
 /public/storage
 /public/build
 /storage/*.key
+/storage/docker
 /vendor
 .env
 .env.backup
