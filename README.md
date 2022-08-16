@@ -25,7 +25,7 @@ COMPOSE_PROJECT_NAME=app
 ~~~
 cp .env.example .env
 composer install
-sudo chmod -R 777 storage
+make perm
 php artisan key:generate
 php artisan migrate
 php artisan storage:link
@@ -36,6 +36,8 @@ yarn
 npm install
 npm run dev #npm run prod
 ~~~
+
+*make - берет команды из Makefile
 
 установка без пакетов для разработчика
 ~~~
