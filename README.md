@@ -30,6 +30,12 @@ php artisan key:generate
 php artisan migrate
 php artisan storage:link
 ~~~
+через докер:
+~~~
+make assets-install
+make assets-dev
+~~~
+ручная:
 ~~~
 nvm use 16.14.2
 yarn
@@ -37,7 +43,7 @@ npm install
 npm run dev #npm run prod
 ~~~
 
-*make - берет команды из Makefile
+*make - берет команды из Makefile<br>
 
 установка без пакетов для разработчика
 ~~~
