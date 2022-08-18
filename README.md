@@ -10,11 +10,6 @@ docker-compose down
 
 будет доступен тут: [https://localhost:8080/](https://localhost:8080/) <br>
 
-выполнить команды внутри образа: <br>
-~~~
-docker exec artello_php-fpm_1 php artisan migrate
-~~~
-
 если нужно сменить префикс создаваемых образов, то в .env добавляем такую строчку:
 ~~~
 COMPOSE_PROJECT_NAME=app
@@ -22,6 +17,19 @@ COMPOSE_PROJECT_NAME=app
 
 ### Установка
 
+через докер:
+~~~
+cp .env.example .env
+docker-compose up -d
+docker-compose exec php-fpm composer install
+docker-compose exec php-fpm php artisan key:generate
+docker-compose exec php-fpm php artisan migrate
+docker-compose exec php-fpm php artisan storage:link
+docker-compose exec node yarn install
+docker-compose exec node yarn run dev
+make perm
+~~~
+ручная:
 ~~~
 cp .env.example .env
 composer install
@@ -29,14 +37,6 @@ make perm
 php artisan key:generate
 php artisan migrate
 php artisan storage:link
-~~~
-через докер:
-~~~
-make assets-install
-make assets-dev
-~~~
-ручная:
-~~~
 nvm use 16.14.2
 yarn
 npm install
