@@ -59,6 +59,13 @@
                         в фалах темы сменить все <code>asset('build/js/app.js')</code> на <code>mix('js/app.js', 'build')</code> (второй параметр это папка где лежит)
                     </p>
 
+                    <h4>удалить Vue</h4>
+                    <p>
+                        <code>docker-compose exec node yarn remove vue</code><br>
+                        удалить из файла <em>resources/js/app.js</em> все что к нему относится<br>
+                        удалить <em>resources/js/components/ExampleComponent.vue</em>
+                    </p>
+
                 </div>
             </div>
         </div>
