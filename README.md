@@ -56,7 +56,8 @@ composer install --no-dev
 активируем:<br>
 `File -> Settings -> PHP -> Laravel -> Enable plugin for this project`<br>
 после установки любого пакета нужно выполнить:<br>
-`php artisan ide-helper:generate`
+`php artisan ide-helper:generate`<br>
+`docker-compose exec php-fpm php artisan ide-helper:generate`
 
 ### Nginx ручная установка
 
