@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Docker</div>
 
@@ -13,80 +13,95 @@
                         </div>
                     @endif
 
-                    <p>
-                        собрать и разобрать сборки<br>
-                        <code>docker-compose up -d</code><br>
-                        <code>docker-compose up --build -d</code><br>
-                        <code>docker-compose down</code><br>
-                        <em>-d</em> указывает, что нужно в фоновом режиме
-                    </p>
+собрать и разобрать сборки
+<pre>
+docker-compose up -d
+docker-compose up --build -d
+docker-compose down
+</pre>
+<em>-d</em> указывает, что нужно в фоновом режиме
+<hr>
 
-                    <p>
-                        вывести все контейнеры, и запущенные и не запущенные<br>
-                        <code>docker ps -a</code><br>
-                        остановить и удалить контейнер / принудительно<br>
-                        <code>docker rm &lt;container_id></code><br>
-                        <code>docker rm -f &lt;container_id></code><br>
-                        остановить все запущенные контейнеры<br>
-                        <code>docker kill $(docker ps -q)</code><br>
-                        удаляем все<br>
-                        <code>docker rm -f $(docker ps -a -q)</code>
-                    </p>
+<code>список контейнеров</code>, и запущенные и не запущенные
+<pre>docker ps -a</pre>
+остановить и удалить контейнер / принудительно
+<pre>docker rm &lt;container_id></pre>
+<pre>docker rm -f &lt;container_id></pre>
+остановить все запущенные контейнеры
+<pre>docker kill $(docker ps -q)</pre>
+удаляем все
+<pre>docker rm -f $(docker ps -a -q)</pre>
+<hr>
 
-                    <p>
-                        список образов<br>
-                        <code>docker images</code><br>
-                        остановить и удалить образ / принудительно<br>
-                        <code>docker rmi &lt;image_id></code><br>
-                        <code>docker rmi -f &lt;image_id></code><br>
-                        сразу все:<br>
-                        <code>docker rmi $(docker images -q)</code>
-                    </p>
+<code>список образов</code>
+<pre>docker images</pre>
+остановить и удалить образ / принудительно
+<pre>
+docker rmi &lt;image_id>
+docker rmi -f &lt;image_id>
+</pre>
+сразу все:
+<pre>docker rmi $(docker images -q)</pre>
 
-                    <h4>docker-compose</h4>
-                    <p>пример <em>docker-compose.yml</em> :</p>
-                    @include('components.pre.docker')
-                    <p>
-                        подключимся к этой БД:<br>
-                        <code>mysql -uapp -psecret --port 33061 --host 127.0.0.1</code>
-                    </p>
-                    <p>
-                        зелезем внуть контейнера для выполнения консольных команд<br>
-                        <code>docker ps -a</code><br>
-                        <code>docker exec -it &lt;container_id> bash</code>
-                    </p>
+<h4>docker-compose</h4>
+пример <em>docker-compose.yml</em> :
+<pre>
+version: '2' # в зависимости от версии меняется синтаксис
+  services:
+    mysql: # название образа
+      image: mysql:5.7 # что будет внутри и его версия
+      environment: # настройки env для прокидки внутрь
+        - "MYSQL_ROOT_PASSWORD=secret"
+        - "MYSQL_USER=app"
+        - "MYSQL_PASSWORD=secret"
+        - "MYSQL_DATABASE=app"
+      ports: # внешний и внутренний порт
+        - "33061:3306"
+</pre>
+подключимся к этой БД:
+<pre>mysql -uapp -psecret --port 33061 --host 127.0.0.1</pre>
 
-                    <h4>установка docker</h4>
-                    <p>
-                        подготовка<br>
-                        <code>sudo apt update</code><br>
-                        <code>sudo apt install apt-transport-https ca-certificates curl software-properties-common</code><br>
-                        <code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</code><br>
-                        <code>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"</code><br>
-                        <code>sudo apt update</code><br>
-                        <code>apt-cache policy docker-ce</code><br>
-                        установка<br>
-                        <code>sudo apt install docker-ce</code><br>
-                        <code>sudo systemctl status docker</code>
-                    </p>
-                    <p>
-                        установка DOCKER COMPOSE<br>
-                        <code>sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</code><br>
-                        <code>sudo chmod +x /usr/local/bin/docker-compose</code><br>
-                        <code>docker-compose --version</code><br>
-                        без sudo<br>
-                        <code>sudo usermod -aG docker nail</code><br>
-                        <code>su - nail</code><br>
-                        <code>id -nG</code>
-                    </p>
+зелезем внуть контейнера для выполнения консольных команд
+<pre>
+docker ps -a
+docker exec -it &lt;container_id> bash
+</pre>
 
-                    <h4>тестим чистый docker (не compose)</h4>
-                    <p>
-                        поднять для теста MySQL образ:<br>
-                        <code>docker run -e MYSQL_ROOT_PASSWORD=root mysql</code><br>
-                        залезем внутрь образа и выполним там команду <em>ls</em> :<br>
-                        <code>docker run -e MYSQL_ROOT_PASSWORD=root mysql ls</code>
-                    </p>
+
+<h4>установка docker</h4>
+подготовка<br>
+<pre>
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt update
+apt-cache policy docker-ce
+</pre>
+установка
+<pre>
+sudo apt install docker-ce
+sudo systemctl status docker
+</pre>
+установка DOCKER COMPOSE
+<pre>
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+</pre>
+без sudo
+<pre>
+sudo usermod -aG docker nail
+su - nail
+id -nG
+</pre>
+
+
+<h4>тестим чистый docker (не compose)</h4>
+поднять для теста MySQL образ:
+<pre>docker run -e MYSQL_ROOT_PASSWORD=root mysql</pre>
+залезем внутрь образа и выполним там команду <em>ls</em> :
+<pre>docker run -e MYSQL_ROOT_PASSWORD=root mysql ls</pre>
 
                 </div>
             </div>

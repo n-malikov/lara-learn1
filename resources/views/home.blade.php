@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card">
             <div class="card-header">Hello</div>
 
@@ -22,33 +22,22 @@
                     <li><a href="/docker">Docker</a></li>
                 </ul>
 
-                <p>
-                    без пакетов для разработчика<br>
-                    <code>composer install --no-dev</code>
-                </p>
+                без пакетов для разработчика
+                <pre>composer install --no-dev</pre>
 
                 <h4>Node</h4>
-                <p>
-                    <code>nvm install 16.14.2</code><br>
-                    <code>nvm use 16.14.2</code><br>
-                    <code>yarn</code><br>
-                    <code>npm install</code><br>
-                    <code>npm run dev</code> или <code>npm run prod</code> - все варианты в /package.json
-                </p>
+                @include('components.pre.node')
 
                 <h4>IDE Helper</h4>
-                <p>
-                    добавляем Laravel IDE Helper<br>
-                    <code>composer require --dev barryvdh/laravel-ide-helper</code>
-                </p>
-                <p>
-                    скопируем файл настроек из vendor в config нашего проекта<br>
-                    <code>php artisan vendor:publish</code><br>
-                    и далее выбираем нужный модуль из списка<br>
-                    <code>php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config</code><br>
-                    в конце не забываем сгенерировать по новой:<br>
-                    <code>php artisan ide-helper:generate</code>
-                </p>
+                добавляем Laravel IDE Helper
+                <pre>composer require --dev barryvdh/laravel-ide-helper</pre>
+
+                скопируем файл настроек из vendor в config нашего проекта
+                <pre>php artisan vendor:publish</pre>
+                и далее выбираем нужный модуль из списка
+                <pre>php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config</pre>
+                в конце не забываем сгенерировать по новой:
+                <pre>php artisan ide-helper:generate</pre>
 
                 <h4>Webpack</h4>
                 <p>
@@ -62,18 +51,14 @@
                 </p>
 
                 <h4>удалить Vue</h4>
-                <p>
-                    <code>docker-compose exec node yarn remove vue</code><br>
-                    удалить из файла <em>resources/js/app.js</em> все что к нему относится<br>
-                    удалить <em>resources/js/components/ExampleComponent.vue</em>
-                </p>
+                <pre>docker-compose exec node yarn remove vue</pre>
+                удалить из файла <em>resources/js/app.js</em> все что к нему относится<br>
+                удалить <em>resources/js/components/ExampleComponent.vue</em>
 
                 <h4>Breadcrumbs</h4>
-                <p>
-                    <code>composer require davejamesmiller/laravel-breadcrumbs</code><br>
-                    создаем файл <em>routes/breadcrumbs.php</em><br>
-                    там где нужно вывести вставляем: <code>&#123;!! Breadcrumbs::render() !!}</code>
-                </p>
+                <pre>composer require davejamesmiller/laravel-breadcrumbs</pre>
+                создаем файл <em>routes/breadcrumbs.php</em><br>
+                там где нужно вывести вставляем: <code>&#123;!! Breadcrumbs::render() !!}</code>
 
             </div>
         </div>
