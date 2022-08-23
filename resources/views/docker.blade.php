@@ -7,11 +7,6 @@
                 <div class="card-header">Docker</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
 собрать и разобрать сборки
 <pre>

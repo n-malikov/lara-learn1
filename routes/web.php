@@ -13,7 +13,10 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/docker', 'HomeController@docker')->name('docker');
+Route::get('/authentication', 'HomeController@authentication')->name('authentication');
 
 Auth::routes();
+
+Route::get('/verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
 Route::get('/cabinet', 'Cabinet\HomeController@index')->name('cabinet');

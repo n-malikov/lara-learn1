@@ -10,16 +10,12 @@
             <div class="card-header">Hello</div>
 
             <div class="card-body">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
 
                 <h2><code>laralearn</code> - введи в поиске по проекту, это комментарии из уроков</h2>
 
                 <ul>
                     <li><a href="/docker">Docker</a></li>
+                    <li><a href="/authentication">Аутентификация</a></li>
                 </ul>
 
                 без пакетов для разработчика
