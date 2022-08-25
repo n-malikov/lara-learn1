@@ -12,6 +12,12 @@ Breadcrumbs::for('docker', function ($trail) {
     $trail->push('Docker', route('docker'));
 });
 
+// Home > Authentication
+Breadcrumbs::for('authentication', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Аутентификация', route('authentication'));
+});
+
 // Home > Login
 Breadcrumbs::for('login', function ($trail) {
     $trail->parent('home');

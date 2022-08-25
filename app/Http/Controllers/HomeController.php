@@ -20,4 +20,9 @@ class HomeController extends Controller
     {
         return view('docker');
     }
+
+    public function authentication()
+    {
+        return view('authentication');
+    }
 }
