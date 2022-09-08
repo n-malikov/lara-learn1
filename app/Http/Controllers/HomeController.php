@@ -16,13 +16,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function docker()
-    {
-        return view('docker');
-    }
-
-    public function authentication()
-    {
-        return view('authentication');
-    }
 }

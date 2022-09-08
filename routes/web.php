@@ -12,8 +12,6 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/docker', 'HomeController@docker')->name('docker');
-Route::get('/authentication', 'HomeController@authentication')->name('authentication');
 
 Auth::routes();
 
