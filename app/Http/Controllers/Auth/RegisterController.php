@@ -48,35 +48,29 @@ class RegisterController extends Controller
     public function verify ($token)
     {
         // laralearn этот метод для подтверждения ссылок типа http://lara-learn.test/verify/6RHwtDdsEc99UV3u
+
         if ( !$user = User::where('verify_token', $token)->first() ) {
             return redirect()->route('login')
                 ->with('error', 'Sorry your link cannot be identified.');
         }
 
-        if ( $user->status !== User::STATUS_WAIT ) {
-            return redirect()->route('login')
-                ->with('error', 'Your email is already verified.');
+        try {
+            $user->verify();
+            return redirect()->route('login')->with('success', 'Your e-mail is verified. You can now login.');
+        } catch (\DomainException $e) {
+            return redirect()->route('login')->with('error', $e->getMessage());
         }
-
-        $user->status = User::STATUS_ACTIVE;
-        $user->verify_token = null;
-        $user->save();
-
-        return redirect()->route('login')
-            ->with('success', 'Your e-mail is verified. You can now login.');
     }
 
     protected function register(RegisterRequest $request)
     {
         // laralearn выше заменили стандартный Request на нами созданный RegisterRequest
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            // laralearn добавим еще и свои поля
-            'verify_token' => Str::random(),
-            'status' => User::STATUS_WAIT,
-        ]);
+
+        $user = User::register(
+            $request['name'],
+            $request['email'],
+            $request['password']
+        );
 
         // Mail::to($user->email)->send(new VerifyMail($user));
         // laralearn способом ниже мы не сразу отправляем письмо, а ставим в очередь, смотри в .env QUEUE_CONNECTION
