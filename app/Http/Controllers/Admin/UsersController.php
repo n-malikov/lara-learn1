@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\UseCases\Auth\RegisterService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +13,13 @@ use App\Http\Requests\Admin\Users\UpdateRequest;
 
 class UsersController extends Controller
 {
+    private $service;
+
+    public function __construct(RegisterService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
         $users = User::orderBy('id','desc')->paginate(10);
@@ -85,7 +93,8 @@ class UsersController extends Controller
 
     public function verify(User $user)
     {
-        $user->verify();
+        // laralearn можно сразу $user->verify(); , но разбиваем на части
+        $this->service->verify($user->id);
 
         return redirect()->route('admin.users.show', $user);
     }

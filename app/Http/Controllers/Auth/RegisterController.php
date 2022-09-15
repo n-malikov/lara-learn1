@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\RegisterRequest;
+use App\UseCases\Auth\RegisterService;
 use App\User;
 use App\Mail\VerifyMail;
 use App\Http\Controllers\Controller;
@@ -35,14 +36,18 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/cabinet';
 
+    private $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(RegisterService $service)
     {
         $this->middleware('guest');
+
+        $this->service = $service;
     }
 
     public function verify ($token)
@@ -55,6 +60,7 @@ class RegisterController extends Controller
         }
 
         try {
+            $this->service->verify($user->id);
             $user->verify();
             return redirect()->route('login')->with('success', 'Your e-mail is verified. You can now login.');
         } catch (\DomainException $e) {
@@ -66,17 +72,7 @@ class RegisterController extends Controller
     {
         // laralearn выше заменили стандартный Request на нами созданный RegisterRequest
 
-        $user = User::register(
-            $request['name'],
-            $request['email'],
-            $request['password']
-        );
-
-        // Mail::to($user->email)->send(new VerifyMail($user));
-        // laralearn способом ниже мы не сразу отправляем письмо, а ставим в очередь, смотри в .env QUEUE_CONNECTION
-        // Mail::to($user->email)->queue(new VerifyMail($user));
-
-        event( new Registered($user) );
+        $this->service->register($request);
 
         return redirect()->route('login')
             ->with('success', 'Check your email and click on the link to verify.');
