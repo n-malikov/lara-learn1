@@ -48,7 +48,7 @@ class RegisterService
     public function verify($id): void
     {
         /** @var User $user */
-        $user = User::findOrFale($id);
+        $user = User::findOrFail($id);
         $user->verify();
     }
 }

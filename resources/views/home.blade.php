@@ -13,6 +13,10 @@
 
                 <h2><code>laralearn</code> - введи в поиске по проекту, это комментарии из уроков</h2>
 
+                <br><br>
+                активировать созданного пользователя можно командой:
+                <pre>php artisan user:verify EXAMPLE@EXAMPLE.COM</pre>
+
             </div>
         </div>
     </div>
