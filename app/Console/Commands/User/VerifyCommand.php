@@ -39,7 +39,7 @@ class VerifyCommand extends Command
             return false;
         }
 
-        $this->info('Success!');
+        $this->info('User is successfully verified');
         return true;
     }
 }

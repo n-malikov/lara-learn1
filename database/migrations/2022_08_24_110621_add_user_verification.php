@@ -17,6 +17,11 @@ class AddUserVerification extends Migration
             $table->string('status', 16);
             $table->string('verify_token')->nullable()->unique();
         });
+
+        // laralearn чтоб у уже существующих пользователей не было пустым поле, заполняем:
+        DB::table('users')->update([
+            'status' => 'active'
+        ]);
     }
 
     /**
