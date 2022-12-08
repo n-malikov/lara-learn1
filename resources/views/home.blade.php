@@ -11,11 +11,16 @@
 
             <div class="card-body">
 
-                <h2><code>laralearn</code> - введи в поиске по проекту, это комментарии из уроков</h2>
-
-                <br><br>
+                <br>
                 активировать созданного пользователя можно командой:
                 <pre>php artisan user:verify EXAMPLE@EXAMPLE.COM</pre>
+
+                <br>
+                сделать его админом:
+                <pre>php artisan user:role EXAMPLE@EXAMPLE.COM admin</pre>
+
+                <br>
+                «laralearn» - введи в поиске по проекту, это комментарии
 
             </div>
         </div>

@@ -36,7 +36,7 @@ Route::group(
         'prefix'    => 'admin',
         'as'        => 'admin.', // подставляется в "->name"
         'namespace' => 'Admin',
-        'middleware'=> ['auth'],
+        'middleware'=> ['auth', 'can:admin-panel'], // can берется из app/Providers/AuthServiceProvider.php
     ],
     function () {
         Route::get('/', 'HomeController@index')->name('home');

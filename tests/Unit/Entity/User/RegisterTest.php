@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseTransactions; // laralearn - это чтоб после всех манипуляцай автоматом весь мусор записанный в БД удалялся
 
     public function testRequest(): void
     {
@@ -37,6 +37,7 @@ class RegisterTest extends TestCase
 
         self::assertFalse($user->isWait());
         self::assertTrue($user->isActive());
+        self::assertFalse($user->isAdmin());
     }
 
     public function testAlreadyVerified(): void

@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 
 class VerifyCommand extends Command
 {
+    // php artisan make:command User/VerifyCommand
     // php artisan user:verify example@mail.com
     protected $signature = 'user:verify {email}'; // в фигурных скобках параметр
 

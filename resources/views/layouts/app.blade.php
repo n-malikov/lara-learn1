@@ -57,7 +57,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('admin.home') }}">Admin</a>
+                                    @can('admin-panel') {{-- laralearn can берется из app/Providers/AuthServiceProvider.php--}}
+                                        <a class="dropdown-item" href="{{ route('admin.home') }}">Admin</a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('cabinet') }}">Cabinet</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

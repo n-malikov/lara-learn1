@@ -13,15 +13,19 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property string $password
  * @property string $verify_token
+ * @property string $role
  * @property string $status
  */
 class User extends Authenticatable
 {
     use Notifiable;
 
-    // laralearn для них создадим поля в БД
+    // laralearn подтвержденный (верифицированный) или нет
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
+
+    public const ROLE_USER = 'user';
+    public const ROLE_ADMIN = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +33,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'verify_token', 'status'
+        'name', 'email', 'password', 'verify_token', 'role', 'status'
     ];
 
     /**
@@ -58,6 +62,7 @@ class User extends Authenticatable
             'password'=> bcrypt($password),
             'verify_token' => Str::uuid(),
             //'verify_token' => Str::random(),
+            'role'    => self::ROLE_USER,
             'status'  => self::STATUS_WAIT,
         ]);
     }
@@ -68,6 +73,7 @@ class User extends Authenticatable
             'name'    => $name,
             'email'   => $email,
             'password'=> bcrypt(Str::random()),
+            'role'    => self::ROLE_USER,
             'status'  => self::STATUS_ACTIVE,
         ]);
     }
@@ -92,5 +98,21 @@ class User extends Authenticatable
             'status' => self::STATUS_ACTIVE,
             'verify_token' => null,
         ]);
+    }
+
+    public function changeRole($role) : void
+    {
+        if ( !\in_array($role, [self::ROLE_USER, self::ROLE_ADMIN], true) ) {
+            throw new \InvalidArgumentException("Undefined role «{$role}»");
+        }
+        if ($this->role === $role) {
+            throw new \DomainException('Role is already assigned.');
+        }
+        $this->update(['role' => $role]);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role == self::ROLE_ADMIN;
     }
 }

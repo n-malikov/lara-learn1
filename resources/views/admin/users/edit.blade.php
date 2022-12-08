@@ -24,21 +24,17 @@
             @endif
         </div>
 
-        <?php
-        /*
         <div class="form-group">
-            <label for="status" class="col-form-label">Status</label>
-            <select id="status" name="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}">
-                @foreach($statuses AS $value => $label)
-                    <option value="{{ $value }}"{{ $value === old('status', $user->status) ? ' selected' : '' }}>{{ $label }}</option>
+            <label for="role" class="col-form-label">Role</label>
+            <select id="role" name="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}">
+                @foreach($roles AS $value => $label)
+                    <option value="{{ $value }}"{{ $value === old('role', $user->role) ? ' selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
-            @if ($errors->has('status'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('status') }}</strong></span>
+            @if ($errors->has('role'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('role') }}</strong></span>
             @endif
         </div>
-        */
-        ?>
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>
