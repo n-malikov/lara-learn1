@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('admin._nav')
+    @include('admin._nav', ['page' => 'users'])
 
     <p><a href="{{ route('admin.users.create') }}" class="btn btn-success">Add User</a></p>
 

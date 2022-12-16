@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('admin._nav')
+    @include('admin._nav', ['page' => 'users'])
 
     <table class="table table-bordered table-striped">
         <tbody>

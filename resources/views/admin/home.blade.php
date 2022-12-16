@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('admin._nav')
+    @include('admin._nav', ['page' => ''])
 
     <div class="card">
         <div class="card-header">Admin</div>
