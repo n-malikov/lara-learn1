@@ -20,6 +20,10 @@
                 <pre>php artisan user:role EXAMPLE@EXAMPLE.COM admin</pre>
 
                 <br>
+                сгенерировать несколько рандомных юзеров и регионов:
+                <pre>php artisan db:seed</pre>
+
+                <br>
                 «laralearn» - введи в поиске по проекту, это комментарии
 
             </div>

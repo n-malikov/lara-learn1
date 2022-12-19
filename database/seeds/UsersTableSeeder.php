@@ -5,7 +5,9 @@ use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
+    // запустить этот сидер:
     // php artisan db:seed --class=UsersTableSeeder
+
     /**
      * @return void
      */
