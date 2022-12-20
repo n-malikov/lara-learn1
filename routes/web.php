@@ -40,8 +40,11 @@ Route::group(
     ],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
+
         // laralearn генерируем сразу пачку методов (index, create, update и тд)
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
+
+        Route::resource('regions', 'RegionController');
     }
 );

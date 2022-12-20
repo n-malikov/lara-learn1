@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
+    // php artisan make:migration create_users_table
     /**
      * Run the migrations.
      *

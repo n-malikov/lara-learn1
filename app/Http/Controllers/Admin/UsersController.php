@@ -13,6 +13,8 @@ use App\Http\Requests\Admin\Users\UpdateRequest;
 
 class UsersController extends Controller
 {
+    // php artisan make:controller Admin\\UsersController --resource
+
     private $service;
 
     public function __construct(RegisterService $service)

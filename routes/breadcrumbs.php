@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Entity\Region;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 // Home
@@ -53,6 +54,27 @@ Breadcrumbs::for('admin.users.show', function ($trail, User $user) {
 Breadcrumbs::for('admin.users.edit', function ($trail, User $user) {
     $trail->parent('admin.users.show', $user);
     $trail->push('Edit', route('admin.users.edit', $user));
+});
+
+Breadcrumbs::for('admin.regions.index', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push('Regions', route('admin.regions.index'));
+});
+Breadcrumbs::for('admin.regions.create', function ($trail) {
+    $trail->parent('admin.regions.index');
+    $trail->push('Create', route('admin.regions.create'));
+});
+Breadcrumbs::for('admin.regions.show', function ($trail, Region $region) {
+    if ($parent = $region->parent) {
+        $trail->parent('admin.regions.show', $parent); // laralearn рекурсия
+    } else {
+        $trail->parent('admin.regions.index');
+    }
+    $trail->push($region->name, route('admin.regions.show', $region));
+});
+Breadcrumbs::for('admin.regions.edit', function ($trail, Region $region) {
+    $trail->parent('admin.regions.show', $region);
+    $trail->push('Edit', route('admin.regions.edit', $region));
 });
 
 // Home > Blog > [Category]
