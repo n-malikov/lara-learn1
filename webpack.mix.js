@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
 mix
     .setPublicPath('public/build')
-    .setResourceRoot('build') //laralearn: это чтоб внутри сгенерированных файлов нормально пути проставлял
+    .setResourceRoot('/build/') //laralearn: это чтоб внутри сгенерированных файлов нормально пути проставлял
     .js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css')
     .version();
