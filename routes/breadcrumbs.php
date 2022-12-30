@@ -3,6 +3,7 @@
 use App\User;
 use App\Entity\Region;
 use App\Entity\Adverts\Category;
+use App\Entity\Adverts\Attribute;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 // Home
@@ -97,6 +98,23 @@ Breadcrumbs::for('admin.adverts.categories.show', function ($trail, Category $ca
 Breadcrumbs::for('admin.adverts.categories.edit', function ($trail, Category $category) {
     $trail->parent('admin.adverts.categories.show', $category);
     $trail->push('Edit', route('admin.adverts.categories.edit', $category));
+});
+
+// Advert Category Attributes
+
+Breadcrumbs::register('admin.adverts.categories.attributes.create', function ($trail, Category $category) {
+    $trail->parent('admin.adverts.categories.show', $category);
+    $trail->push('Create attribute', route('admin.adverts.categories.attributes.create', $category));
+});
+
+Breadcrumbs::register('admin.adverts.categories.attributes.show', function ($trail, Category $category, Attribute $attribute) {
+    $trail->parent('admin.adverts.categories.show', $category);
+    $trail->push($attribute->name, route('admin.adverts.categories.attributes.show', [$category, $attribute]));
+});
+
+Breadcrumbs::register('admin.adverts.categories.attributes.edit', function ($trail, Category $category, Attribute $attribute) {
+    $trail->parent('admin.adverts.categories.attributes.show', $category, $attribute);
+    $trail->push('Edit', route('admin.adverts.categories.attributes.edit', [$category, $attribute]));
 });
 
 // Home > Blog > [Category]
