@@ -50,6 +50,11 @@ npm run dev #npm run prod
 composer install --no-dev
 ~~~
 
+### Запуск тестов
+~~~
+php vendor/bin/phpunit
+~~~
+
 ### Настройка PhpStorm
 ставим плагин:<br>
 `File -> Settings -> Plugins -> Marketplace -> Laravel`<br>
