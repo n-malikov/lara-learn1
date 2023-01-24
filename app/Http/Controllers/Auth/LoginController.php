@@ -70,7 +70,7 @@ class LoginController extends Controller
             $user = Auth::user();
             if ($user->status != User::STATUS_ACTIVE ) {
                 Auth::logout();
-                return back()->with('error', 'You need to confirm your account. Please check your email. 777');
+                return back()->with('error', 'You need to confirm your account. Please check your email.');
             }
             return redirect()->intended(route('cabinet'));
         }

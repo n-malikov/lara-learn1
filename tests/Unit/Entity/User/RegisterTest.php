@@ -23,10 +23,11 @@ class RegisterTest extends TestCase
         self::assertEquals($name, $user->name);
         self::assertEquals($email, $user->email);
         self::assertNotEmpty($user->password);
-        self::assertNotEquals($password, $user->password);
+        self::assertNotEquals($password, $user->password); // laralearn проверка, что мы храним не прямые пароли, а их хэши
 
         self::assertTrue($user->isWait());
         self::assertFalse($user->isActive());
+        self::assertFalse($user->isAdmin());
     }
 
     public function testVerify(): void
