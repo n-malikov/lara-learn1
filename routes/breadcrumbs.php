@@ -47,6 +47,11 @@ Breadcrumbs::for('cabinet.profile.edit', function ($trail) {
     $trail->push('Edit', route('cabinet.profile.edit'));
 });
 
+Breadcrumbs::register('cabinet.profile.phone', function ($trail) {
+    $trail->parent('cabinet.profile.home');
+    $trail->push('Phone', route('cabinet.profile.phone'));
+});
+
 // Home > Admin
 Breadcrumbs::for('admin.home', function ($trail) {
     $trail->parent('home');

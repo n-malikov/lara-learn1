@@ -1,5 +1,10 @@
 # Laravel learning
 
+### Запуск тестов
+~~~
+php vendor/bin/phpunit
+~~~
+
 ### Docker
 
 собрать и разобрать:
@@ -48,11 +53,6 @@ npm run dev #npm run prod
 установка без пакетов для разработчика
 ~~~
 composer install --no-dev
-~~~
-
-### Запуск тестов
-~~~
-php vendor/bin/phpunit
 ~~~
 
 ### Настройка PhpStorm
