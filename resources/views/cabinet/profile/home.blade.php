@@ -33,6 +33,21 @@
                 @endif
             </td>
         </tr>
+        @if ($user->phone)
+            <tr>
+                <th>Two Factor Auth</th><td>
+                    <form method="POST" action="{{ route('cabinet.profile.phone.auth') }}">
+                        @csrf
+                        @if ($user->isPhoneAuthEnabled())
+                            <button type="submit" class="btn btn-sm btn-success">On</button>
+                        @else
+                            <button type="submit" class="btn btn-sm btn-danger">Off</button>
+                        @endif
+                    </form>
+                    не включай, если не подрубил SMS сервис в конфиге
+                </td>
+            </tr>
+        @endif
         </tbody>
     </table>
 

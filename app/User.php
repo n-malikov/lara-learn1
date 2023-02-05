@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
  * @property string $last_name
  * @property string $email
  * @property string $phone
+ * @property bool $phone_auth
  * @property bool $phone_verified
  * @property string $password
  * @property string $verify_token
@@ -168,6 +169,26 @@ class User extends Authenticatable
     public function isPhoneVerified(): bool
     {
         return $this->phone_verified;
+    }
+
+    public function isPhoneAuthEnabled(): bool
+    {
+        return (bool)$this->phone_auth;
+    }
+
+    public function enablePhoneAuth(): void
+    {
+        if (!empty($this->phone) && !$this->isPhoneVerified()) {
+            throw new \DomainException('Phone number is empty.');
+        }
+        $this->phone_auth = true;
+        $this->saveOrFail();
+    }
+
+    public function disablePhoneAuth(): void
+    {
+        $this->phone_auth = false;
+        $this->saveOrFail();
     }
 
 

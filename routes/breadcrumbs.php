@@ -17,6 +17,12 @@ Breadcrumbs::for('login', function ($trail) {
     $trail->push('Login', route('login'));
 });
 
+// Home > Login
+Breadcrumbs::for('login.phone', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Login', route('login.phone'));
+});
+
 // Home > Login > Reset Password
 Breadcrumbs::for('password.request', function ($trail) {
     $trail->parent('login');
