@@ -41,6 +41,12 @@ Breadcrumbs::for('cabinet.home', function ($trail) {
     $trail->push('Cabinet', route('cabinet.home'));
 });
 
+// Home > Cabinet > Adverts
+Breadcrumbs::for('cabinet.adverts.index', function ($trail) {
+    $trail->parent('cabinet.home');
+    $trail->push('Adverts', route('cabinet.adverts.index'));
+});
+
 // Home > Cabinet > Profile
 Breadcrumbs::for('cabinet.profile.home', function ($trail) {
     $trail->parent('cabinet.home');

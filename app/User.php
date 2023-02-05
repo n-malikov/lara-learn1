@@ -191,5 +191,9 @@ class User extends Authenticatable
         $this->saveOrFail();
     }
 
+    public function hasFilledProfile(): bool
+    {
+        return !empty($this->name) && !empty($this->last_name) && $this->isPhoneVerified();
+    }
 
 }
