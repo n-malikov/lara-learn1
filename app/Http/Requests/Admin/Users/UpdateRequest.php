@@ -29,6 +29,7 @@ class UpdateRequest extends FormRequest
             //    User::STATUS_WAIT,
             //    User::STATUS_ACTIVE
             //])],
+            'role'=> ['required', 'string', Rule::in(array_keys(User::rolesList()))],
         ];
     }
 }

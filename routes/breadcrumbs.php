@@ -1,9 +1,10 @@
 <?php
 
+use App\Entity\Adverts\Advert\Advert;
+use App\Entity\Adverts\Attribute;
+use App\Entity\Adverts\Category;
 use App\User;
 use App\Entity\Region;
-use App\Entity\Adverts\Category;
-use App\Entity\Adverts\Attribute;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 // Home
@@ -35,6 +36,40 @@ Breadcrumbs::for('register', function ($trail) {
     $trail->push('Register', route('register'));
 });
 
+// Adverts
+
+Breadcrumbs::register('adverts.inner_region', function ($trail, Region $region = null, Category $category = null) {
+    if ($region && $parent = $region->parent) {
+        $trail->parent('adverts.inner_region', $parent, $category);
+    } else {
+        $trail->parent('home');
+        $trail->push('Adverts', route('adverts.index'));
+    }
+    if ($region) {
+        $trail->push($region->name, route('adverts.index', $region, $category));
+    }
+});
+
+Breadcrumbs::register('adverts.inner_category', function ($trail, Region $region = NULL, Category $category = NULL) {
+    if ($category && $parent = $category->parent) {
+        $trail->parent('adverts.inner_category', $region, $parent);
+    } else {
+        $trail->parent('adverts.inner_region', $region, $category);
+    }
+    if ($category) {
+        $trail->push($category->name, route('adverts.index', $region, $category));
+    }
+});
+
+Breadcrumbs::register('adverts.index', function ($trail, Region $region = NULL, Category $category = NULL) {
+    $trail->parent('adverts.inner_category', $region, $category);
+});
+
+Breadcrumbs::register('adverts.show', function ($trail, Advert $advert) {
+    $trail->parent('adverts.index', $advert->region, $advert->category);
+    $trail->push($advert->title, route('adverts.show', $advert));
+});
+
 // Home > Cabinet
 Breadcrumbs::for('cabinet.home', function ($trail) {
     $trail->parent('home');
@@ -45,6 +80,21 @@ Breadcrumbs::for('cabinet.home', function ($trail) {
 Breadcrumbs::for('cabinet.adverts.index', function ($trail) {
     $trail->parent('cabinet.home');
     $trail->push('Adverts', route('cabinet.adverts.index'));
+});
+
+Breadcrumbs::for('cabinet.adverts.create', function ($trail) {
+    $trail->parent('adverts.index');
+    $trail->push('Create', route('cabinet.adverts.create'));
+});
+
+Breadcrumbs::for('cabinet.adverts.create.region', function ($trail, Category $category, Region $region = NULL) {
+    $trail->parent('cabinet.adverts.create');
+    $trail->push($category->name, route('cabinet.adverts.create.region', [$category, $region]));
+});
+
+Breadcrumbs::for('cabinet.adverts.create.advert', function ($trail, Category $category, Region $region = NULL) {
+    $trail->parent('cabinet.adverts.create.region', $category, $region);
+    $trail->push($region ? $region->name : 'All', route('cabinet.adverts.create.advert', [$category, $region]));
 });
 
 // Home > Cabinet > Profile
