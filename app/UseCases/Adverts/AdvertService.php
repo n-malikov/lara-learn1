@@ -113,6 +113,12 @@ class AdvertService
         });
     }
 
+    public function expire(Advert $advert): void
+    {
+        $advert->expire();
+        // laralearn тут можно заодно отправить письма пользователям о том что объявление закрыто
+    }
+
     public function remove($id): void
     {
         $advert = $this->getAdvert($id);

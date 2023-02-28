@@ -84,6 +84,13 @@ class Advert extends Model
         ]);
     }
 
+    public function expire(): void
+    {
+        $this->update([
+            'status' => self::STATUS_CLOSED,
+        ]);
+    }
+
     public function getValue($id)
     {
         foreach ($this->values as $value) {
