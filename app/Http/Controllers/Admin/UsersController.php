@@ -54,10 +54,7 @@ class UsersController extends Controller
             User::STATUS_WAIT   => 'wait',
         ];
 
-        $roles = [
-            User::ROLE_USER  => 'User',
-            User::ROLE_ADMIN => 'Admin',
-        ];
+        $roles = User::rolesList();
 
         return view('admin.users.index', compact('users', 'statuses', 'roles'));
     }
@@ -72,6 +69,7 @@ class UsersController extends Controller
         $user = User::create( $request->only(['name','email']) + [
             'password' => bcrypt(Str::random()),
             'status'   => User::STATUS_ACTIVE,
+            'role'   => User::ROLE_USER,
         ]);
         //$user = User::create([
         //    'name'  => $request['name'],
@@ -101,10 +99,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        $roles = [
-            User::ROLE_USER  => 'User',
-            User::ROLE_ADMIN => 'Admin',
-        ];
+        $roles = User::rolesList();
 
         return view('admin.users.edit', compact('user', 'roles'));
     }

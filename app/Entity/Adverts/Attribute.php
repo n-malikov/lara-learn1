@@ -39,4 +39,29 @@ class Attribute extends Model
         ];
     }
 
+    public function isString(): bool
+    {
+        return $this->type === self::TYPE_STRING;
+    }
+
+    public function isInteger(): bool
+    {
+        return $this->type === self::TYPE_INTEGER;
+    }
+
+    public function isFloat(): bool
+    {
+        return $this->type === self::TYPE_FLOAT;
+    }
+
+    public function isNumber(): bool
+    {
+        return $this->isInteger() || $this->isFloat();
+    }
+
+    public function isSelect(): bool
+    {
+        return \count($this->variants) > 0;
+    }
+
 }
